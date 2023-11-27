@@ -1,4 +1,4 @@
-resource "kubernetes_deployment_v1" "vote" {
+resource "kubernetes_deployment_v1" "vote-deployment" {
   metadata {
     name = "vote"
     labels = {
