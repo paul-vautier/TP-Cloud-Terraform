@@ -9,25 +9,9 @@ terraform {
 
 
 
-# Networks
-resource "docker_network" "front-tier" {
-  name = "front-tier"
-}
-resource "docker_network" "back-tier" {
-  name = "back-tier"
-}
-
-
-
 #
 # Vote
 #
-resource "docker_image" "image_vote" {
-  name = "image_vote"
-  build {
-    context = "../example-voting-app/vote/"
-  }
-}
 resource "docker_container" "vote" {
   name  = "vote"
   image = docker_image.image_vote.image_id
@@ -51,12 +35,6 @@ resource "docker_container" "vote" {
 #
 # Results
 #
-resource "docker_image" "image_result" {
-  name = "image_result"
-  build {
-    context = "../example-voting-app/result/"
-  }
-}
 resource "docker_container" "result" {
   name  = "result"
   image = docker_image.image_result.image_id
@@ -83,12 +61,6 @@ resource "docker_container" "result" {
 #
 # Worker
 #
-resource "docker_image" "image_worker" {
-  name = "image_worker"
-  build {
-    context = "../example-voting-app/worker/"
-  }
-}
 resource "docker_container" "worker" {
   name  = "worker"
   image = docker_image.image_worker.image_id
@@ -111,9 +83,6 @@ resource "docker_container" "worker" {
 #
 #  Redis
 #
-resource "docker_image" "redis" {
-  name = "redis:alpine"
-}
 resource "docker_container" "redis_db" {
   name  = "redis"
   image = docker_image.redis.image_id
@@ -136,9 +105,6 @@ resource "docker_container" "redis_db" {
 #
 #  Postgres
 #
-resource "docker_image" "postgres" {
-  name = "postgres:15-alpine"
-}
 resource "docker_container" "postgres_db" {
   name  = "db"
   image = docker_image.postgres.image_id
@@ -163,14 +129,9 @@ resource "docker_container" "postgres_db" {
 }
 
 
-
+#
 # Seed
-resource "docker_image" "seed" {
-  name = "image_seed"
-  build {
-    context = "../example-voting-app/seed-data/"
-  }
-}
+#
 resource "docker_container" "seed" {
   name     = "seed"
   image    = docker_image.seed.image_id
