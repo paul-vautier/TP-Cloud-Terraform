@@ -163,6 +163,27 @@ resource "docker_container" "postgres_db" {
 }
 
 
+
+# Seed
+resource "docker_image" "seed" {
+  name = "image_seed"
+  build {
+    context = "../example-voting-app/seed-data/"
+  }
+}
+resource "docker_container" "seed" {
+  name     = "seed"
+  image    = docker_image.seed.image_id
+
+  networks_advanced {
+    name = "front-tier"
+  }
+
+  depends_on = [docker_container.vote]
+}
+
+
+
 # Outputs
 output "vote_endpoint" {
   value = "http://localhost:${docker_container.vote.ports[0].external}"
