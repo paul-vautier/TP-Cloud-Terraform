@@ -1,4 +1,4 @@
-resource "kubernetes_deployment_v1" "worker" {
+resource "kubernetes_deployment_v1" "worker-deployment" {
   metadata {
     name = "worker"
     labels = {

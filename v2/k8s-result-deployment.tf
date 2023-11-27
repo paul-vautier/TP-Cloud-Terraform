@@ -1,4 +1,4 @@
-resource "kubernetes_deployment_v1" "result" {
+resource "kubernetes_deployment_v1" "result-deployment" {
   metadata {
     labels = {
       app = "result"

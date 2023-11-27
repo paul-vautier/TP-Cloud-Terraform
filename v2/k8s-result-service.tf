@@ -1,4 +1,4 @@
-resource "kubernetes_service_v1" "result" {
+resource "kubernetes_service_v1" "result-service" {
   metadata {
     name = "result"
     labels = {
