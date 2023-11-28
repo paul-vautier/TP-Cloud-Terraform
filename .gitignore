@@ -1,2 +1,4 @@
 .terraform/
 v2/api_key.json
+v3/api_key.json
+v3/os-admin.pem
