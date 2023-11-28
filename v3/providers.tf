@@ -16,6 +16,32 @@ variable "api_key" {
   description = "location of the API Key in filesystem, granting access to GKE"
   type = string
 }
+
+variable "os_region" {
+  description = ""
+  type = string
+}
+
+variable "os_auth_url" {
+  description = ""
+  type = string
+}
+
+variable "os_tenant_name" {
+  description = ""
+  type = string
+}
+
+variable "os_user_name" {
+  description = ""
+  type = string
+}
+
+variable "os_key_name" {
+  description = "the name of the private key that will be used to access OPENSTACK"
+  type = string
+}
+
 terraform {
     required_providers {
 	google = {
@@ -25,6 +51,10 @@ terraform {
 	kubernetes = {
 	    source = "hashicorp/kubernetes"
 	    version = ">= 2.23.0"
+	}
+	openstack = {
+	  source  = "terraform-provider-openstack/openstack"
+	  version = "~> 1.53.0"
 	}
     }
 }
@@ -45,3 +75,11 @@ provider "google" {
   zone = var.zone
   credentials = file(var.api_key)
 }
+
+provider "openstack" {
+  user_name   = var.os_user_name
+  tenant_name = var.os_tenant_name
+  auth_url    = var.os_auth_url
+  region      = var.os_region
+}
+
